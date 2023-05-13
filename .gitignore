@@ -1,5 +1,6 @@
 # macOS
 .DS_Store
+SetOut/.DS_Store
 
 # Xcode
 *.xcworkspace/
