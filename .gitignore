@@ -11,6 +11,7 @@ SetOut.xcodeproj/
 #Assets
 SetOut/Assets.xcassets/
 SetOut/Preview Content/
+SetOut/Environment
 
 # Swift
 *.swiftpm/

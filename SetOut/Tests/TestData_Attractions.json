@@ -1,0 +1,70 @@
+[
+    {
+        "id": 1001,
+        "name": "Greenwich Observatory",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "The Royal Observatory, Greenwich is an observatory situated on a hill in Greenwich Park, overlooking the River Thames. It played a major role in the history of astronomy and navigation, and is best known as the location of the prime meridian, which gave its name to Greenwich Mean Time. The ROG has the IAU observatory code of 000, the first in the list. ROG, the National Maritime Museum, the Queen's House and Cutty Sark are collectively designated Royal Museums Greenwich.",
+        "isOpen": true,
+        "rating": 4.7,
+        "distance": 2.64,
+        "unitDistance": "km",
+        "isFavourite": false,
+        "attractionImageName": "royalObservatory",
+        "coordinates": {
+            "longitude": 51.476833,
+            "latitude": -0.000536
+        }
+    },
+    {
+        "id": 1002,
+        "name": "Cutty Sark",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "Cutty Sark is a British clipper ship. Built on the River Leven, Dumbarton, Scotland in 1869 for the Jock Willis Shipping Line, she was one of the last tea clippers to be built and one of the fastest, coming at the end of a long period of design development for this type of vessel, which halted as steamships took over their routes.",
+        "isOpen": true,
+        "rating": 4.5,
+        "distance": 1.85,
+        "unitDistance": "km",
+        "isFavourite": false,
+        "attractionImageName": "cuttySark",
+        "coordinates": {
+            "longitude": 51.482880,
+            "latitude": -0.009586
+        }
+    },
+    {
+        "id": 1003,
+        "name": "Tower Bridge",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "Tower Bridge is a combined bascule and suspension bridge in London built in 1886–1894. The bridge crosses the River Thames close to the Tower of London and has become an iconic symbol of London. Tower Bridge is one of five London bridges now owned and maintained by the Bridge House Estates, a charitable trust overseen by the City of London Corporation.",
+        "isOpen": false,
+        "rating": 4.9,
+        "distance": 3.45,
+        "unitDistance": "km",
+        "isFavourite": true,
+        "attractionImageName": "towerBridge",
+        "coordinates": {
+            "longitude": 51.505507,
+            "latitude": -0.075402
+        }
+    },
+    {
+        "id": 1004,
+        "name": "O2 Millenium Dome",
+        "city": "London",
+        "country": "United Kingdom",
+        "description": "he O2 Arena, referred to as North Greenwich Arena in the context of the 2012 Summer Olympics and 2012 Summer Paralympics, is a multi-purpose indoor arena located in the centre of The O2 entertainment complex on the Greenwich Peninsula in south-east London. It is named after its primary sponsor, the telecommunications company O2.",
+        "isOpen": true,
+        "rating": 4.1,
+        "distance": 2.35,
+        "unitDistance": "km",
+        "isFavourite": false,
+        "attractionImageName": "milleniumDome",
+        "coordinates": {
+            "longitude": 51.502937,
+            "latitude": 0.003182
+        }
+    }
+]
