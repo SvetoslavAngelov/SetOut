@@ -22,6 +22,8 @@ struct VOptionsView: View {
     @EnvironmentObject var slidingCardPosition: DCardPosition
     @EnvironmentObject var mapPlacemark: DMapPlacemark
     
+    @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
+    
     @State var startLocationName = "Loading..."
     
     var body: some View{
@@ -78,7 +80,7 @@ struct VOptionsView: View {
                 .padding()
             
             ScrollView{
-                ForEach(touristAttractions) { result in
+                ForEach(attractionsOutline) { result in
                     RAttractionRow(touristAttraction: result)
                 }
             }.frame(width: 360.0, height: 420.0)
@@ -87,6 +89,12 @@ struct VOptionsView: View {
             slidingCardPosition.updatePosition(newPosition: .bottom)
         }.onChange(of: mapPlacemark.name) {_ in
             startLocationName = mapPlacemark.name
+        }.task {
+            do {
+                attractionsOutline = try await getListOfAttractions()
+            } catch {
+                print("Failed to fetch user: \(error)")
+            }
         }
     }
     

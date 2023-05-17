@@ -40,11 +40,11 @@ struct VItineraryView: View {
                 }.buttonStyle(.borderedProminent)
             }
             
-            ScrollView{
+            /*ScrollView{
                 ForEach(touristAttractions) { result in
                     RAttractionRow(touristAttraction: result)
                 }
-            }.frame(width: 360.0, height: 560.0)
+            }.frame(width: 360.0, height: 560.0)*/
         }
     }
     
@@ -66,5 +66,7 @@ struct VItineraryView: View {
 struct VItineraryView_Previews: PreviewProvider {
     static var previews: some View {
         VItineraryView()
+            .environmentObject(DNavigationStack())
+            .environmentObject(DCardPosition())
     }
 }

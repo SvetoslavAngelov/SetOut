@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RAttractionRow: View {
     
-    var touristAttraction: DTouristAttraction
+    var touristAttraction: DAttractionOutline
 
     var body: some View {
         
@@ -68,6 +68,6 @@ struct RAttractionRow: View {
 
 struct RAttractionRow_Previews: PreviewProvider {
     static var previews: some View {
-        RAttractionRow(touristAttraction: touristAttractions[0])
+        RAttractionRow(touristAttraction: DAttractionOutline())
     }
 }
