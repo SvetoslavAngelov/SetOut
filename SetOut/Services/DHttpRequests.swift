@@ -7,7 +7,7 @@
 
 import Foundation
 
-func getListOfAttractions<T: Decodable>() async throws -> T {
+func getListOfAttractions() async throws -> [DAttractionOutline] {
     
     let urlString = APIGATEWAY + "/attractions" + "?" + "key=" + APIKEY
     
@@ -19,8 +19,8 @@ func getListOfAttractions<T: Decodable>() async throws -> T {
 
     do {
           let decoder = JSONDecoder()
-          return try decoder.decode(T.self, from: data)
+          return try decoder.decode([DAttractionOutline].self, from: data)
       } catch {
-          fatalError("Couldn't parse \(data.description) as \(T.self):\n\(error)")
+          fatalError("Couldn't parse \(data.description) as a tourist attraction object:\n\(error)")
       }
 }

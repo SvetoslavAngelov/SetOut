@@ -22,9 +22,9 @@ struct DAttractionOutline: Identifiable, Hashable, Codable {
     var longitude: Double
     
     // Image of the tourist attraction
-    private var attractionImageName: String
+    private var imageName: String
     var attractionImage: Image {
-        Image(attractionImageName)
+        Image(imageName)
     }
     
     var mapKitCoordinates: CLLocationCoordinate2D {
@@ -45,6 +45,6 @@ struct DAttractionOutline: Identifiable, Hashable, Codable {
         self.latitude = 0.0
         self.longitude = 0.0
         
-        attractionImageName = "default"
+        imageName = "default"
     }
 }
