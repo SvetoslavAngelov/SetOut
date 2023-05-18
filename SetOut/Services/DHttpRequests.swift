@@ -14,13 +14,17 @@ func getListOfAttractions() async throws -> [DAttractionOutline] {
     guard let url = URL(string: urlString) else {
         throw URLError(.badURL)
     }
+    
+    var request = URLRequest(url: url)
+    request.setValue(Bundle.main.bundleIdentifier, forHTTPHeaderField: "x-ios-bundle-identifier")
 
-    let (data, _) = try await URLSession.shared.data(from: url)
+    let (data, _) = try await URLSession.shared.data(for: request)
 
     do {
           let decoder = JSONDecoder()
           return try decoder.decode([DAttractionOutline].self, from: data)
       } catch {
-          fatalError("Couldn't parse \(data.description) as a tourist attraction object:\n\(error)")
+          print("Couldn't parse \(data.description) as a tourist attraction object:\n\(error)")
+          return [DAttractionOutline()]
       }
 }
