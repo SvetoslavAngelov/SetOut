@@ -23,23 +23,29 @@ struct VMainView: View {
     @EnvironmentObject var navigationStack: DNavigationStack
     
     var body: some View {
-        
-        ZStack {
+        ZStack{
             CMapView().preferredColorScheme(.light)
             
             GeometryReader{ screen in
-                CSlidingCard(width: screen.size.width, height: screen.size.height, alignment: .top){
-                    
+                
+                VStack{
                     switch navigationStack.stack {
                     case .searchView:
-                        VSearchView()
+                        VSearchView(screenWidth: screen.size.width)
                     case .optionsView:
-                        VOptionsView()
+                        withAnimation{
+                            VOptionsView()
+                                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                        }
                     case .itineraryView:
-                        VItineraryView()
+                        withAnimation{
+                            VItineraryView()
+                                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                        }
+                        
                     }
                 }
-            }.edgesIgnoringSafeArea(.bottom)
+            }
         }
     }
 }

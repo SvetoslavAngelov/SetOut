@@ -18,7 +18,7 @@ struct SetOutApp: App {
     @StateObject var navigationStack = DNavigationStack()
     
     // The position of the main sliding card component
-    // which is used to host all of the three main subviews (see above)
+    // which is shared amongst the Options and Itinerary view.
     @StateObject var slidingCardPosition = DCardPosition()
     
     // A custom location manager, which is used to request the user's

@@ -19,6 +19,8 @@ class DNavigationStack: ObservableObject {
     @Published var stack = DStack.searchView
 
     public func navigateTo(_ newView: DStack) -> Void {
-        self.stack = newView
+        withAnimation{
+            self.stack = newView
+        }
     }
 }

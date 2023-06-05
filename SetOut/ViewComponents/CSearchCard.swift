@@ -1,17 +1,13 @@
 //
-//  VSearchView.swift
+//  CSearchCard.swift
 //  SetOut
 //
-//  Created by Svetoslav Angelov on 02/01/2023.
+//  Created by Svetoslav Angelov on 01/06/2023.
 //
 
 import SwiftUI
 
-/*
-    View which contains a custom search bar and list of search results. Users can
-    search for specific point of interest on the map and view them as a list.
- */
-struct VSearchView: View {
+struct CSearchCard: View {
     
     var screenWidth: CGFloat
     
@@ -77,14 +73,11 @@ struct VSearchView: View {
     }
 }
 
-struct VSearchView_Previews: PreviewProvider {
+struct CSearchCard_Previews: PreviewProvider {
     static var previews: some View {
-        GeometryReader{screen in
-            VSearchView(screenWidth: screen.size.width)
-                .environmentObject(DNavigationStack())
-                .environmentObject(DLocationManager())
-                .environmentObject(DLocationSearch())
-                .environmentObject(DMapPlacemark())
-            }
-        }
+        GeometryReader {screen in
+            CSearchCard(screenWidth: screen.size.width)
+        }.edgesIgnoringSafeArea(.bottom)
+            .environmentObject(DLocationSearch())
+    }
 }

@@ -13,43 +13,53 @@ struct RSearchRow: View {
     private var locationTitle: String
     private var locationSubtitle: String
     
-    init(locationItem: MKLocalSearchCompletion) {
+    var screenWidth: CGFloat
+    
+    init(locationItem: MKLocalSearchCompletion, screenWidth: CGFloat) {
         
         self.locationTitle = locationItem.title
         let lastCommaIndex = locationItem.subtitle.lastIndex(of: ",") ?? locationItem.subtitle.endIndex
         self.locationSubtitle = String(locationItem.subtitle[..<lastCommaIndex])
+        self.screenWidth = screenWidth
     }
     
-    init(title: String, subtitle: String) {
+    init(title: String, subtitle: String,  screenWidth: CGFloat) {
         self.locationTitle = title
         self.locationSubtitle = subtitle
+        self.screenWidth = screenWidth
     }
     
     var body: some View {
-        
-        ZStack(alignment: .leading){
-            RoundedRectangle(cornerRadius: 20.0)
-                .foregroundColor(Color(.white))
-                .frame(width: 360.0, height: 80.0)
-                .shadow(color: Color(.gray), radius: 0.5, x: 0.5, y: 1.0)
+        VStack{
+            HStack(alignment: .center){
+                VStack(alignment: .leading, spacing: 10.0){
+                        Text(locationTitle)
+                            .font(.subheadline)
+                            .foregroundColor(Color("primary"))
+                            .bold()
+                            .frame(width: screenWidth*0.8, alignment: .leading)
+                            .padding([.top,.leading])
+                        Text(locationSubtitle)
+                            .font(.subheadline)
+                            .foregroundColor(.secondary)
+                            .frame(width: screenWidth*0.8, alignment: .leading)
+                            .padding(.leading)
+                }
+                
+                Text("\(Image(systemName: "chevron.right"))")
+            }
             
-            VStack(alignment: .leading, spacing: 10.0){
-                Text(locationTitle)
-                    .font(.subheadline)
-                    .foregroundColor(Color("primary"))
-                    .bold()
-                Text(locationSubtitle)
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-                    .frame(height: 40.0, alignment: .topLeading)
-            }.padding(.leading)
+            RoundedRectangle(cornerRadius: 10.0)
+                .frame(width: screenWidth*0.9, height: 2.0)
+                .foregroundColor(.gray)
         }
+            .frame(width: screenWidth)
     }
 }
 
 struct RSearchRow_Previews: PreviewProvider {
     static var previews: some View {
-        RSearchRow(title: "Royal Observatory Greenwich", subtitle: "Address")
+        RSearchRow(title: "Royal Observatory Greenwich", subtitle: "Address", screenWidth: 380.0)
     }
 }
 

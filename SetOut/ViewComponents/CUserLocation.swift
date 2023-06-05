@@ -19,9 +19,8 @@ struct CUserLocation: View {
             navigateToOptions()
         } label: {
             Text("\(Image(systemName: "location"))")
-                .frame(width: 30.0)
                 .font(.title2)
-        }.buttonStyle(.borderedProminent)
+        }
     }
     
     private func requestLocation() -> Void {
@@ -37,9 +36,7 @@ struct CUserLocation: View {
     }
     
     private func navigateToOptions() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
             navigationStack.navigateTo(.optionsView)
-        }
     }
 }
 
