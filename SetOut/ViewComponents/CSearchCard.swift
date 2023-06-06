@@ -33,8 +33,10 @@ struct CSearchCard: View {
                             .foregroundColor(.gray)
                             .padding(.leading)
                         TextField("Start location...", text: $searchText)
-                            .frame(width: screenWidth - 175, height: 50.0)
+                            .font(.title3)
+                            .frame(width: screenWidth - 174, height: 50.0)
                             .focused($isFocused)
+                            .border(.orange)
                         
                         RoundedRectangle(cornerRadius: 10.0)
                             .frame(width: 4.0, height: 40.0)

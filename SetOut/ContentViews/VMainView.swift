@@ -27,22 +27,25 @@ struct VMainView: View {
             CMapView().preferredColorScheme(.light)
             
             GeometryReader{ screen in
-                
-                VStack{
-                    switch navigationStack.stack {
-                    case .searchView:
-                        VSearchView(screenWidth: screen.size.width)
-                    case .optionsView:
-                        withAnimation{
-                            VOptionsView()
-                                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
-                        }
-                    case .itineraryView:
-                        withAnimation{
-                            VItineraryView()
-                                .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
-                        }
-                        
+                ZStack {
+                    VStack{
+                        switch navigationStack.stack {
+                            case .searchView:
+                                VSearchView(screenWidth: screen.size.width)
+                                .frame(height: screen.size.height + screen.safeAreaInsets.bottom)
+                            case .optionsView:
+                                withAnimation{
+                                    COptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                                }
+                            case .itineraryView:
+                                withAnimation{
+                                    VItineraryView()
+                                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                                }
+                            }
+                    }.safeAreaInset(edge: .top){
+                        STransparentCard(width: screen.size.width, height: 0.0)
                     }
                 }
             }

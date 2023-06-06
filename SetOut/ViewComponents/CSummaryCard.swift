@@ -31,7 +31,7 @@ struct CSummaryCard: View {
                 // Search field
                 HStack(spacing: 20.0){
                     Text(summaryText)
-                        .font(.title2)
+                        .font(.title3)
                         .frame(width: screenWidth - 130, height: 50.0, alignment: .leading)
 
                     RoundedRectangle(cornerRadius: 10.0)
@@ -42,7 +42,7 @@ struct CSummaryCard: View {
                             navigationStack.navigateTo(navigateTo)
                         }
                         .foregroundColor(.blue)
-                        .font(.title)
+                        .font(.title2)
                 }.padding(.leading)
             }
             

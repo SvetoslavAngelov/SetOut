@@ -24,9 +24,9 @@ struct STransparentCard: View {
     var body: some View {
         RoundedRectangle(cornerRadius: 0.0)
             .frame(width: width, height: height)
+            .blendMode(.overlay)
             .background(.ultraThinMaterial)
-            .blendMode(.softLight)
-            .cornerRadius(10.0)
+            
     }
 }
 

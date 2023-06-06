@@ -15,34 +15,30 @@ struct RRouteOptionsRow: View {
     @State private var sliderInput: Double
     @State private var isEditing: Bool
     
+    private var screenSize: CGFloat
     private var sliderRange: Double
-    private var description: String
     private var imageLiteral: String
     private var stringSpecifier: String
     private var unitMeasure: String
     
-    init(sliderInput: Double, isEditing: Bool, sliderRange: Double, description: String, imageLiteral: String, stringSpecifier: String, unitMeasure: String)
+    init(screenSize: CGFloat, sliderInput: Double, isEditing: Bool, sliderRange: Double, imageLiteral: String, stringSpecifier: String, unitMeasure: String)
     {
+        self.screenSize = screenSize
         self.sliderInput = sliderInput
         self.isEditing = isEditing
         self.sliderRange = sliderRange
-        self.description = description
         self.imageLiteral = imageLiteral
         self.stringSpecifier = stringSpecifier
         self.unitMeasure = unitMeasure
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 10.0){
-            Text(description)
-                .font(.subheadline)
-                .bold()
-                .foregroundColor(Color("primary"))
             
-            HStack{
+        HStack(alignment: .center, spacing: 10.0){
                 Text(Image(systemName: imageLiteral))
                     .font(.title2)
                     .foregroundColor(Color("primary"))
+                    .frame(width: screenSize*0.2)
                 
                 Slider(
                     value: $sliderInput,
@@ -50,20 +46,19 @@ struct RRouteOptionsRow: View {
                     onEditingChanged: {
                         editing in isEditing = editing
                     })
-                .preferredColorScheme(.dark)
-                .frame(width: 180.0, height: 0.0, alignment: .leading)
+                    .preferredColorScheme(.dark)
+                    .frame(width: screenSize*0.5, height: 0.0, alignment: .leading)
                 
                 Text("\(sliderInput, specifier: stringSpecifier) \(unitMeasure)")
-                    .font(.subheadline)
-                    .bold()
+                    .font(.title3)
                     .foregroundColor(Color("primary"))
+                    .frame(width: screenSize*0.2)
             }
-        }
     }
 }
 
 struct RRouteOptionsRow_Previews: PreviewProvider {
     static var previews: some View {
-        RRouteOptionsRow(sliderInput: 5.0, isEditing: false, sliderRange: 10, description: "Distance to walk", imageLiteral: "figure.walk.circle.fill", stringSpecifier: "%.1f", unitMeasure: "km")
+        RRouteOptionsRow(screenSize: 380.0, sliderInput: 5.0, isEditing: false, sliderRange: 10, imageLiteral: "figure.walk.circle.fill", stringSpecifier: "%.1f", unitMeasure: "km")
     }
 }

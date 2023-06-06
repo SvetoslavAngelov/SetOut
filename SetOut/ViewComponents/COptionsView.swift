@@ -12,6 +12,13 @@ struct COptionsView: View {
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
+    @EnvironmentObject var slidingCardPosition: DCardPosition
+    @EnvironmentObject var navigationStack: DNavigationStack
+    @EnvironmentObject var mapPlacemark: DMapPlacemark
+    
+    @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
+    @State var startLocationName = "Loading..."
+    
     var body: some View {
         
         CSlidingCard(width: screenWidth, height: screenHeight, alignment: .top){
@@ -24,17 +31,46 @@ struct COptionsView: View {
                 }
                     .padding(.top)
                     .frame(width: screenWidth)
-                    .border(.orange)
                 
                 Text("Start Location")
-                    .font(.title2)
+                    .font(.title3)
                     .foregroundColor(Color("primary"))
                     .bold()
                     .padding()
                 
-                CSummaryCard(screenWidth: screenWidth, summaryText: "Current Location", icon: "arrow.forward.circle.fill", navigateTo: .itineraryView)
+                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", navigateTo: .searchView)
+                
+                Text("Filter By")
+                    .font(.title3)
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .padding()
+                
+                CFilterSection(screenWidth: screenWidth)
+                
+                Text("Top Attractions")
+                    .font(.title3)
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .padding()
+                
+                ScrollView{
+                    ForEach(attractionsOutline) { result in
+                        RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
+                    }
+                }.frame(height: screenHeight * 0.3)
             }
-
+        }.onAppear{
+            startLocationName = mapPlacemark.name
+            slidingCardPosition.updatePosition(newPosition: .bottom)
+        }.onChange(of: mapPlacemark.name) {_ in
+            startLocationName = mapPlacemark.name
+        }.task {
+            do {
+                attractionsOutline = try await getListOfAttractions()
+            } catch {
+                print("Failed to fetch user: \(error)")
+            }
         }
     }
 }
@@ -46,5 +82,7 @@ struct COptionsView_Previews: PreviewProvider {
         }
             .edgesIgnoringSafeArea(.bottom)
             .environmentObject(DCardPosition())
+            .environmentObject(DNavigationStack())
+            .environmentObject(DMapPlacemark())
     }
 }

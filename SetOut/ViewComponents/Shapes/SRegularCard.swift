@@ -18,10 +18,11 @@ struct SRegularCard: View {
     }
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 0.0)
+        RoundedRectangle(cornerRadius: 10.0)
             .strokeBorder(.white, lineWidth: 1.0)
             .frame(width: width, height: height)
             .background(.white)
+            .cornerRadius(10.0)
     }
 }
 
