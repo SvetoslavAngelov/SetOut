@@ -23,7 +23,7 @@ struct CSummaryCard: View {
             ZStack(alignment: .leading){
                 RoundedRectangle(cornerRadius: 0.0)
                     .foregroundColor(Color(.white))
-                    .frame(width: screenWidth - 20.0, height: 60.0)
+                    .frame(width: screenWidth - 20.0, height: 50.0)
                     .overlay{
                         RoundedRectangle(cornerRadius: 10.0).stroke(.gray)
                     }
@@ -31,11 +31,11 @@ struct CSummaryCard: View {
                 // Search field
                 HStack(spacing: 20.0){
                     Text(summaryText)
-                        .font(.title3)
+                        .font(.body)
                         .frame(width: screenWidth - 130, height: 50.0, alignment: .leading)
 
                     RoundedRectangle(cornerRadius: 10.0)
-                        .frame(width: 4.0, height: 40.0)
+                        .frame(width: 4.0, height: 30.0)
                         .foregroundColor(.gray)
                     
                     Button("\(Image(systemName: icon))"){

@@ -1,27 +1,25 @@
 //
-//  RTopAttractions.swift
+//  RItineraryAttraction.swift
 //  SetOut
 //
-//  Created by Svetoslav Angelov on 06/06/2023.
+//  Created by Svetoslav Angelov on 07/06/2023.
 //
 
 import SwiftUI
 
-struct RTopAttractions: View {
-    
+struct RItineraryAttraction: View {
+    var id: Int
     var screenWidth: CGFloat
     var touristAttraction: DAttractionOutline
     
     var body: some View {
         VStack {
             HStack(alignment: .center,spacing: 10.0) {
-                Button {
-                    likeAttraction()
-                } label: {
-                    Text("\(Image(systemName: "heart"))")
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                }
+                
+                Text("\(id)")
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .font(.body)
                 
                 touristAttraction.attractionImage
                     .resizable()
@@ -42,14 +40,9 @@ struct RTopAttractions: View {
                         .font(.body)
                     
                     HStack{
-                        Text("\(touristAttraction.rating, specifier: "%.1f")")
+                        Text("\(touristAttraction.distance, specifier: "%.1f") km")
                             .font(.body)
-                            .bold()
                             .foregroundColor(Color("primary"))
-                        
-                        Text("\(Image(systemName: "star.fill"))")
-                            .foregroundColor(.orange)
-                            .font(.body)
                     }
                 }
             }
@@ -60,17 +53,12 @@ struct RTopAttractions: View {
             
         }.frame(width: screenWidth)
     }
-    
-    private func likeAttraction() -> Void {
-        // Add the attraction to a list of liked attractions, later to be
-        // included in the final itinerary.
-    }
 }
 
-struct RTopAttractions_Previews: PreviewProvider {
+struct RItineraryAttraction_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { screen in
-            RTopAttractions(screenWidth: screen.size.width, touristAttraction: DAttractionOutline())
+            RItineraryAttraction(id: 1, screenWidth: screen.size.width, touristAttraction: DAttractionOutline())
         }
     }
 }

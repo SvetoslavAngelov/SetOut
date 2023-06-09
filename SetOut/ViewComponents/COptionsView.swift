@@ -33,15 +33,15 @@ struct COptionsView: View {
                     .frame(width: screenWidth)
                 
                 Text("Start Location")
-                    .font(.title3)
+                    .font(.body)
                     .foregroundColor(Color("primary"))
                     .bold()
                     .padding()
                 
-                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", navigateTo: .searchView)
+                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", navigateTo: .itineraryView)
                 
                 Text("Filter By")
-                    .font(.title3)
+                    .font(.body)
                     .foregroundColor(Color("primary"))
                     .bold()
                     .padding()
@@ -49,7 +49,7 @@ struct COptionsView: View {
                 CFilterSection(screenWidth: screenWidth)
                 
                 Text("Top Attractions")
-                    .font(.title3)
+                    .font(.body)
                     .foregroundColor(Color("primary"))
                     .bold()
                     .padding()
@@ -58,11 +58,10 @@ struct COptionsView: View {
                     ForEach(attractionsOutline) { result in
                         RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
                     }
-                }.frame(height: screenHeight * 0.3)
+                }.frame(height: screenHeight * 0.4)
             }
         }.onAppear{
             startLocationName = mapPlacemark.name
-            slidingCardPosition.updatePosition(newPosition: .bottom)
         }.onChange(of: mapPlacemark.name) {_ in
             startLocationName = mapPlacemark.name
         }.task {

@@ -19,8 +19,8 @@ struct CFilterSection: View {
             HStack(spacing: 10.0){
                 
                 Text("Distance")
-                    .frame(width: (screenWidth - 30.0)/2, height: 60.0)
-                    .font(.title3)
+                    .frame(width: (screenWidth - 30.0)/2, height: 50.0)
+                    .font(.body)
                     .foregroundColor(!isTimeActive ? .blue : .gray)
                     .background(!isTimeActive ? Color(red: 0.44, green: 0.84, blue: 1, opacity: 0.25) : .white)
                     .animation(.easeInOut(duration: 0.1), value: !isTimeActive)
@@ -37,8 +37,8 @@ struct CFilterSection: View {
                     }
                 
                 Text("Time")
-                    .frame(width: (screenWidth - 30.0)/2, height: 60.0)
-                    .font(.title3)
+                    .frame(width: (screenWidth - 30.0)/2, height: 50.0)
+                    .font(.body)
                     .foregroundColor(isTimeActive ? .blue : .gray)
                     .background(isTimeActive ? Color(red: 0.44, green: 0.84, blue: 1, opacity: 0.25) : .white)
                     .animation(.easeInOut(duration: 0.1), value: isTimeActive)

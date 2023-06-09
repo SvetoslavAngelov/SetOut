@@ -21,6 +21,7 @@ import MapKit
 struct VMainView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
+    @StateObject var keyboardResponder = DKeyboardResponder()
     
     var body: some View {
         ZStack{
@@ -40,7 +41,7 @@ struct VMainView: View {
                                 }
                             case .itineraryView:
                                 withAnimation{
-                                    VItineraryView()
+                                    CItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
                                         .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
                                 }
                             }

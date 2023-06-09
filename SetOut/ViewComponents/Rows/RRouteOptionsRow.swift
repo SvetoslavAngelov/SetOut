@@ -50,7 +50,7 @@ struct RRouteOptionsRow: View {
                     .frame(width: screenSize*0.5, height: 0.0, alignment: .leading)
                 
                 Text("\(sliderInput, specifier: stringSpecifier) \(unitMeasure)")
-                    .font(.title3)
+                    .font(.body)
                     .foregroundColor(Color("primary"))
                     .frame(width: screenSize*0.2)
             }

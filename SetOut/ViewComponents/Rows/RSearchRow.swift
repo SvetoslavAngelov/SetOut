@@ -34,7 +34,7 @@ struct RSearchRow: View {
             HStack(alignment: .center){
                 VStack(alignment: .leading, spacing: 10.0){
                         Text(locationTitle)
-                            .font(.subheadline)
+                            .font(.body)
                             .foregroundColor(Color("primary"))
                             .bold()
                             .frame(width: screenWidth*0.8, alignment: .leading)
