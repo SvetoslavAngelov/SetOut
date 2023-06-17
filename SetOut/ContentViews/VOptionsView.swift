@@ -18,106 +18,92 @@ import MapKit
 
 struct VOptionsView: View {
 
-    @EnvironmentObject var navigationStack: DNavigationStack
+    var screenWidth: CGFloat
+    var screenHeight: CGFloat
+    
     @EnvironmentObject var slidingCardPosition: DCardPosition
+    @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var mapPlacemark: DMapPlacemark
     
     @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
-    
     @State var startLocationName = "Loading..."
     
-    var body: some View{
+    var body: some View {
         
-        VStack(alignment: .leading, spacing: 10.0){
-            Text("Start Location")
-                .font(.title3)
-                .foregroundColor(Color("primary"))
-                .bold()
-                .padding()
+        CSlidingCard(width: screenWidth, height: screenHeight, alignment: .top){
             
-            ZStack(alignment: .leading) {
-                RoundedRectangle(cornerRadius: 20.0)
-                    .foregroundColor(Color(.white))
-                    .frame(width: 240.0, height: 60.0)
-                    .shadow(color: Color(.gray), radius: 0.5, x: 0.5, y: 1.0)
+            VStack(alignment: .leading, spacing: 10.0){
+                VStack(alignment: .center){
+                    RoundedRectangle(cornerRadius: 10.0)
+                        .frame(width: 40.0, height: 4.0)
+                        .foregroundColor(.black)
+                }
+                    .padding(.top)
+                    .frame(width: screenWidth)
                 
-                HStack(alignment: .center, spacing: 10.0){
-                    Text(startLocationName)
-                        .frame(width: 230.0, alignment: .leading)
-                        .font(.subheadline)
-                        .foregroundColor(Color("primary"))
-                        .bold()
-                        .padding(.leading)
-                    
-                    Button {
-                        returnToSearchView()
-                    } label: {
-                        Text("\(Image(systemName: "magnifyingglass"))")
-                            .font(.title2)
-                    }.buttonStyle(.borderedProminent)
-                    
-                    Button {
-                        startRoutePlan()
-                    } label: {
-                        Text("\(Image(systemName: "compass.drawing"))")
-                            .font(.title2)
-                    }.buttonStyle(.borderedProminent)
-                }
+                Text("Start Location")
+                    .font(.body)
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .padding()
+                
+                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", action: CreateItinerary)
+                
+                Text("Filter By")
+                    .font(.body)
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .padding()
+                
+                CFilterSection(screenWidth: screenWidth)
+                
+                Text("Top Attractions")
+                    .font(.body)
+                    .foregroundColor(Color("primary"))
+                    .bold()
+                    .padding()
+                
+                ScrollView{
+                    ForEach(attractionsOutline) { result in
+                        RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
+                    }
+                }.frame(height: screenHeight * 0.5)
             }
-
-            Text("Options")
-                .font(.title3)
-                .foregroundColor(Color("primary"))
-                .bold()
-                .padding()
-            
-            CRouteOptions()
-            
-            Text("Top Attractions")
-                .font(.title3)
-                .foregroundColor(Color("primary"))
-                .bold()
-                .padding()
-            
-            ScrollView{
-                ForEach(attractionsOutline) { result in
-                    RAttractionRow(touristAttraction: result)
-                }
-            }.frame(width: 360.0, height: 420.0)
         }.onAppear{
             startLocationName = mapPlacemark.name
-            slidingCardPosition.updatePosition(newPosition: .bottom)
         }.onChange(of: mapPlacemark.name) {_ in
             startLocationName = mapPlacemark.name
         }.task {
-            /*do {
+            do {
                 attractionsOutline = try await getListOfAttractions()
             } catch {
                 print("Failed to fetch user: \(error)")
-            }*/
+            }
         }
     }
     
-    private func returnToSearchView() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
-            navigationStack.navigateTo(.searchView)
-            slidingCardPosition.updatePosition(newPosition: .bottom)
-        }
-    }
-    
-    private func startRoutePlan() -> Void {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
-            navigationStack.navigateTo(.itineraryView)
-            slidingCardPosition.updatePosition(newPosition: .middle)
-        }
+    private func CreateItinerary() -> Void {
+        // Navigate to the Itinerary view
+        navigationStack.navigateTo(.itineraryView)
+        
+        // Reset Options view card to its default position
+        
+        // Request a new itinerary with the following params:
+            // - Starting location coordinates
+            // - "Cost"
+            // - "Distance/Time"
+            // - ID of favourite attractions
     }
 }
 
 struct VOptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        VOptionsView()
-            .environmentObject(DNavigationStack())
-            .environmentObject(DMapPlacemark())
-            .environmentObject(DCardPosition())
+        GeometryReader{ screen in
+            VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height)
+                .edgesIgnoringSafeArea(.bottom)
+                .environmentObject(DCardPosition())
+                .environmentObject(DNavigationStack())
+                .environmentObject(DMapPlacemark())
+        }
     }
 }

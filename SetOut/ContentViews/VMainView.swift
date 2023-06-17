@@ -36,12 +36,12 @@ struct VMainView: View {
                                 .frame(height: screen.size.height + screen.safeAreaInsets.bottom)
                             case .optionsView:
                                 withAnimation{
-                                    COptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                    VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
                                         .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
                                 }
                             case .itineraryView:
                                 withAnimation{
-                                    CItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                    VItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
                                         .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
                                 }
                             }
