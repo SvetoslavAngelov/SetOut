@@ -37,7 +37,9 @@ class DLocationSearch: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
     }
     
     public func clearSearchQuerry() -> Void {
-        self.searchQuery.removeAll()
+        if !self.searchQuery.isEmpty{
+            self.searchQuery.removeAll()
+        }
     }
     
     // Initiate a map search using fully formed address strings provided by the search completion object

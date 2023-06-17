@@ -19,11 +19,11 @@ struct SRegularCard: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: 10.0)
-            .strokeBorder(.black, lineWidth: 1.0)
+            .strokeBorder(.white, lineWidth: 1.0)
             .frame(width: width, height: height)
-            .blendMode(.overlay)
-            .background(.regularMaterial)
-            .cornerRadius(10.0)
+            .background(.white)
+            .cornerRadius(20.0)
+            .shadow(color: Color(.gray), radius: 4.0, x: 1.0, y: 2.0)
     }
 }
 

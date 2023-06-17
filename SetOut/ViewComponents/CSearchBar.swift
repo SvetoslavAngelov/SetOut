@@ -18,7 +18,6 @@ struct CSearchBar: View {
     @FocusState var isFocused: Bool
     
     @EnvironmentObject var locationSearch: DLocationSearch
-    @EnvironmentObject var slidingCardPosition: DCardPosition
     
     @State var cancelButtonOpacity = 0.0
     
@@ -39,20 +38,17 @@ struct CSearchBar: View {
                         .padding(.leading)
                     TextField("Start location...", text: $searchText)
                         .frame(width: 200.0, height: 50.0)
-                        .focused($isFocused)
-                    if isFocused {
+                        .focused($isFocused)                    
+                    if !searchText.isEmpty {
                         Button("\(Image(systemName: "x.circle.fill"))"){
                             isFocused = false
                             clearSearchQuerry()
+                            cancelButtonOpacity = 0.0
                             
-                            // Set the sliding card's position to the bottom of the screen.
-                            slidingCardPosition.updatePosition(newPosition: .bottom)
                         }.foregroundColor(Color(red: 0.5, green: 0.5, blue: 0.5, opacity: self.cancelButtonOpacity))
                             .font(.title2)
                             .onAppear{
-                                withAnimation(.easeIn(duration: 1.0)) {
                                     cancelButtonOpacity = 1.0
-                                }
                             }
                             .onDisappear{
                                 cancelButtonOpacity = 0.0
@@ -64,22 +60,13 @@ struct CSearchBar: View {
             if !searchText.isEmpty {
                 locationSearch.updateSearchQuery(searchText)
             }
-        }.onChange(of: slidingCardPosition.position) {_ in
-            // When the text field is focused, the location of the card
-            // is going to be at the top, making space for the search results
-            // and the on-screen keyboard. If the location changes to any other
-            // value, the on screen keyboard should be hidden so it doesn't
-            // obstruct the sliding card component.
-            isFocused = false
-            
-            clearSearchQuerry()
         }
     }
 
     private func clearSearchQuerry() -> Void {
         
         // Clear the local search text variable and the location search querry.
-        searchText.removeAll()
+        searchText = ""
         locationSearch.clearSearchQuerry()
     }
 }
@@ -89,8 +76,7 @@ struct CSearchBar_Previews: PreviewProvider {
         ZStack{
             CSearchBar()
                 .environmentObject(DNavigationStack())
-                .environmentObject(DCardPosition())
+                .environmentObject(DLocationSearch())
         }
-        
     }
 }

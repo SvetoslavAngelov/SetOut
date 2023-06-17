@@ -10,39 +10,37 @@ import MapKit
 
 struct CSearchList: View {
     
+    var screenWidth: CGFloat
+    
     @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var locationSearch: DLocationSearch
-    @EnvironmentObject var slidingCardPosition: DCardPosition
     
     @State var searchResults: [MKLocalSearchCompletion] = []
     
     var body: some View {
-        
-        VStack(alignment: .leading, spacing: 10.0){
-            
-            ForEach(searchResults.prefix(5), id: \.self) { location in
-                Button {
-                    locationSearch.startSearch(location)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2){
+        ScrollView{
+            VStack(alignment: .leading, spacing: 0.0) {
+                ForEach(searchResults.prefix(6), id: \.self) { location in
+                    Button {
+                        locationSearch.startSearch(location)
                         navigationStack.navigateTo(.optionsView)
-                        slidingCardPosition.updatePosition(newPosition: .bottom)
-                    }
-                } label: {
-                    RSearchRow(locationItem: location)
-                }.buttonStyle(.plain)
-            }
-        }.frame(width: 360.0)
-            .onChange(of: locationSearch.searchCompletion) {_ in
-                searchResults = locationSearch.searchCompletion
-            }
+                    } label: {
+                        RSearchRow(locationItem: location, screenWidth: screenWidth)
+                    }.buttonStyle(.plain)
+                }
+            }.onChange(of: locationSearch.searchCompletion) {_ in
+                    searchResults = locationSearch.searchCompletion
+                }
+        }.background(.white)
     }
 }
 
 struct CSearchList_Previews: PreviewProvider {
     static var previews: some View {
-        CSearchList()
-            .environmentObject(DNavigationStack())
-            .environmentObject(DLocationSearch())
-            .environmentObject(DCardPosition())
+        GeometryReader{ screen in
+            CSearchList(screenWidth: screen.size.width)
+                .environmentObject(DNavigationStack())
+                .environmentObject(DLocationSearch())
+        }
     }
 }

@@ -20,9 +20,9 @@ struct CRouteOptions: View {
                 .shadow(color: Color(.gray), radius: 0.5, x: 0.5, y: 1.0)
         
             VStack(alignment: .leading, spacing: 20.0){
-                RRouteOptionsRow(sliderInput: 5.0, isEditing: false, sliderRange: 10.0, description: "Distance", imageLiteral: "figure.walk.circle.fill", stringSpecifier: "%.1f", unitMeasure: "km")
+                RRouteOptionsRow(screenSize: 150.0, sliderInput: 5.0, isEditing: false, sliderRange: 10.0, imageLiteral: "figure.walk.circle.fill", stringSpecifier: "%.1f", unitMeasure: "km")
             
-                RRouteOptionsRow(sliderInput: 4.0, isEditing: false, sliderRange: 8.0, description: "Time Available", imageLiteral: "person.crop.circle.badge.clock.fill", stringSpecifier: "%.1f", unitMeasure: "hours")
+                RRouteOptionsRow(screenSize: 150.0, sliderInput: 4.0, isEditing: false, sliderRange: 8.0, imageLiteral: "person.crop.circle.badge.clock.fill", stringSpecifier: "%.1f", unitMeasure: "hours")
             }.padding(.leading)
         }
     }

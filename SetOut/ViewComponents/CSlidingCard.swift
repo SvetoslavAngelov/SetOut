@@ -10,7 +10,7 @@ import SwiftUI
 /*
     This component describes a sliding card which snaps to bottom, mid and
     top screen positions. For the Y position calculation and snap thresholds
-    see DCardPosition.swift .
+    see DCardPosition.swift.
  */
 
 struct CSlidingCard<Content: View> : View {
@@ -87,11 +87,6 @@ struct CSlidingCard<Content: View> : View {
             
             // Card material
             SRegularCard(width: self.width, height: self.height)
-            
-            // Handle
-            RoundedRectangle(cornerRadius: 20.0)
-                .size(width: 38.0, height: 6.0)
-                .offset(x: (self.width * 0.5) - 19.0, y: 10.0)
             
             // Content views
             content()

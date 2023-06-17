@@ -21,25 +21,35 @@ import MapKit
 struct VMainView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
+    @StateObject var keyboardResponder = DKeyboardResponder()
     
     var body: some View {
-        
-        ZStack {
+        ZStack{
             CMapView().preferredColorScheme(.light)
             
             GeometryReader{ screen in
-                CSlidingCard(width: screen.size.width, height: screen.size.height, alignment: .top){
-                    
-                    switch navigationStack.stack {
-                    case .searchView:
-                        VSearchView()
-                    case .optionsView:
-                        VOptionsView()
-                    case .itineraryView:
-                        VItineraryView()
+                ZStack {
+                    VStack{
+                        switch navigationStack.stack {
+                            case .searchView:
+                                VSearchView(screenWidth: screen.size.width)
+                                .frame(height: screen.size.height + screen.safeAreaInsets.bottom)
+                            case .optionsView:
+                                withAnimation{
+                                    COptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                                }
+                            case .itineraryView:
+                                withAnimation{
+                                    CItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
+                                }
+                            }
+                    }.safeAreaInset(edge: .top){
+                        STransparentCard(width: screen.size.width, height: 0.0)
                     }
                 }
-            }.edgesIgnoringSafeArea(.bottom)
+            }
         }
     }
 }

@@ -90,11 +90,11 @@ struct VOptionsView: View {
         }.onChange(of: mapPlacemark.name) {_ in
             startLocationName = mapPlacemark.name
         }.task {
-            do {
+            /*do {
                 attractionsOutline = try await getListOfAttractions()
             } catch {
                 print("Failed to fetch user: \(error)")
-            }
+            }*/
         }
     }
     
