@@ -9,12 +9,29 @@ import SwiftUI
 
 struct CSummaryCard: View {
     
-    var screenWidth: CGFloat
-    var summaryText: String
-    var icon: String
-    var navigateTo: DStack
+    // Card properties
+    private var screenWidth: CGFloat
+    private var summaryText: String
+    private var icon: String
     
-    @EnvironmentObject var navigationStack: DNavigationStack
+    // Optional action to be performed when the button is pressed
+    private var action : (()->Void)
+    
+    // Default initialiser, without an additional action specified
+    init(screenWidth: CGFloat, summaryText: String, icon: String) {
+        self.screenWidth = screenWidth
+        self.summaryText = summaryText
+        self.icon = icon
+        self.action = {}
+    }
+    
+    // Initialiser which takes an explicit action to be performed when the view button is pressed
+    init(screenWidth: CGFloat, summaryText: String, icon: String, action: @escaping () -> Void) {
+        self.screenWidth = screenWidth
+        self.summaryText = summaryText
+        self.icon = icon
+        self.action = action
+    }
     
     var body: some View {
         VStack(spacing: 20.0){
@@ -39,7 +56,7 @@ struct CSummaryCard: View {
                         .foregroundColor(.gray)
                     
                     Button("\(Image(systemName: icon))"){
-                            navigationStack.navigateTo(navigateTo)
+                            action()
                         }
                         .foregroundColor(.blue)
                         .font(.title2)
@@ -54,7 +71,7 @@ struct CSummaryCard: View {
 struct CSummaryCard_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader { screen in
-            CSummaryCard(screenWidth: screen.size.width, summaryText: "Current location", icon: "arrow.forward.circle.fill", navigateTo: .itineraryView)
-        }.environmentObject(DNavigationStack())
+            CSummaryCard(screenWidth: screen.size.width, summaryText: "Current location", icon: "arrow.forward.circle.fill")
+        }
     }
 }

@@ -22,7 +22,8 @@ struct SRegularCard: View {
             .strokeBorder(.white, lineWidth: 1.0)
             .frame(width: width, height: height)
             .background(.white)
-            .cornerRadius(10.0)
+            .cornerRadius(20.0)
+            .shadow(color: Color(.gray), radius: 4.0, x: 1.0, y: 2.0)
     }
 }
 

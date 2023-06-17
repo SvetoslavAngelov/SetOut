@@ -38,7 +38,7 @@ struct COptionsView: View {
                     .bold()
                     .padding()
                 
-                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", navigateTo: .itineraryView)
+                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "arrow.forward.circle.fill", action: CreateItinerary)
                 
                 Text("Filter By")
                     .font(.body)
@@ -58,7 +58,7 @@ struct COptionsView: View {
                     ForEach(attractionsOutline) { result in
                         RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
                     }
-                }.frame(height: screenHeight * 0.4)
+                }.frame(height: screenHeight * 0.5)
             }
         }.onAppear{
             startLocationName = mapPlacemark.name
@@ -71,6 +71,19 @@ struct COptionsView: View {
                 print("Failed to fetch user: \(error)")
             }
         }
+    }
+    
+    private func CreateItinerary() -> Void {
+        // Navigate to the Itinerary view
+        navigationStack.navigateTo(.itineraryView)
+        
+        // Reset Options view card to its default position
+        
+        // Request a new itinerary with the following params:
+            // - Starting location coordinates
+            // - "Cost"
+            // - "Distance/Time"
+            // - ID of favourite attractions
     }
 }
 

@@ -98,7 +98,7 @@ struct CSlidingCard<Content: View> : View {
             cardPosition.position = .top
             cardPosition.withAnimaiton.toggle()
         }
-        .offset(x: 0.0, y: (self.height * cardPosition.position.rawValue) - 10.0)
+        .offset(x: 0.0, y: self.height * cardPosition.position.rawValue)
         .animation(.interpolatingSpring(stiffness: 300.0, damping: 200.0, initialVelocity: 20.0), value: cardPosition.withAnimaiton)
     }
 }

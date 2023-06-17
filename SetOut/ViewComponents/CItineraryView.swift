@@ -37,7 +37,7 @@ struct CItineraryView: View {
                     .bold()
                     .padding()
                 
-                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "magnifyingglass", navigateTo: .searchView)
+                CSummaryCard(screenWidth: screenWidth, summaryText: startLocationName, icon: "magnifyingglass", action: ReturnToSearch)
                 
                 Text("Summary")
                     .font(.body)
@@ -93,6 +93,12 @@ struct CItineraryView: View {
                 print("Failed to fetch user: \(error)")
             }
         }
+    }
+    
+    private func ReturnToSearch() -> Void {
+        
+        // Return to the search view
+        navigationStack.navigateTo(.searchView)
     }
 }
 

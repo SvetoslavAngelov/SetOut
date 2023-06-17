@@ -36,7 +36,6 @@ struct CSearchCard: View {
                             .font(.body)
                             .frame(width: screenWidth - 174, height: 50.0)
                             .focused($isFocused)
-                            .border(.orange)
                         
                         RoundedRectangle(cornerRadius: 10.0)
                             .frame(width: 4.0, height: 40.0)
