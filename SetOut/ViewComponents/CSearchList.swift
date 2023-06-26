@@ -30,7 +30,7 @@ struct CSearchList: View {
                 }
             }.onChange(of: locationSearch.searchCompletion) {_ in
                     searchResults = locationSearch.searchCompletion
-                }
+            }
         }.background(.white)
     }
 }

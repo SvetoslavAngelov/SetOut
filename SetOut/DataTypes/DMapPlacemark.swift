@@ -25,17 +25,19 @@ struct DMapAnnotation: Identifiable {
 
 class DMapPlacemark: ObservableObject {
     
-    @Published var region = DefaultRegion()
     @Published var name = "Loading..."
+    @Published var region = DefaultRegion()
     @Published var annotations = [DMapAnnotation()]
 
-    public func updateMapRegion(newRegion: MKCoordinateRegion) -> Void {
+    public func updateMapRegion(newRegion: MKCoordinateRegion, newRegionName: String) -> Void {
         self.region = newRegion
         self.annotations[0].coordinates = newRegion.center
+        self.name = newRegionName
     }
     
-    public func updateMapRegion(newCoordinate: Optional<CLLocationCoordinate2D>) -> Void {
-        self.region.center = newCoordinate ?? DefaultCoordinates()
-        self.annotations[0].coordinates = newCoordinate ?? DefaultCoordinates()
+    public func updateMapRegion(newRegion: Optional<MKPlacemark>) -> Void {
+        self.region.center = newRegion?.coordinate ?? DefaultCoordinates()
+        self.annotations[0].coordinates = newRegion?.coordinate ?? DefaultCoordinates()
+        self.name = newRegion?.name ?? "Loading..."
     }
 }

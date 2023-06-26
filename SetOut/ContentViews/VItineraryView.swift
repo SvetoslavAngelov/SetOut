@@ -90,12 +90,6 @@ struct VItineraryView: View {
             startLocationName = mapPlacemark.name
         }.onChange(of: mapPlacemark.name) {_ in
             startLocationName = mapPlacemark.name
-        }.task {
-            do {
-                attractionsOutline = try await getListOfAttractions()
-            } catch {
-                print("Failed to fetch user: \(error)")
-            }
         }
     }
     

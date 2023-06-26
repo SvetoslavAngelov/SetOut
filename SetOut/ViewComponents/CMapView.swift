@@ -33,13 +33,11 @@ struct CMapView: View {
                 }
             }.onChange(of: locationManager.lastCoordinateRegion) {_ in
                 withAnimation(.easeInOut(duration: 4.0)){
-                    mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion)
-                    mapPlacemark.name = "Current Location"
+                    mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion, newRegionName: "Current Location")
                 }
             }.onChange(of: locationSearch.mapPlacemark) {_ in
                 withAnimation(.easeInOut(duration: 4.0)){
-                    mapPlacemark.updateMapRegion(newCoordinate: locationSearch.mapPlacemark?.coordinate)
-                    mapPlacemark.name = locationSearch.mapPlacemark?.name ?? "Loading..."
+                    mapPlacemark.updateMapRegion(newRegion: locationSearch.mapPlacemark)
                 }
             }
     }

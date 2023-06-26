@@ -30,8 +30,7 @@ struct CUserLocation: View {
         if lastUserLocation == locationManager.lastCoordinateRegion{
             
             // move the map view back to the user's original location.
-            mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion)
-            mapPlacemark.name = "Current Location"
+            mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion, newRegionName: "Current Location")
         }
     }
     

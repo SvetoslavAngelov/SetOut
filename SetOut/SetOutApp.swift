@@ -12,7 +12,7 @@ struct SetOutApp: App {
     
     // Custom navigation stack, used to switch between the
     // three main sub views in the app:
-    // 1. Search view - user can set a start location of the route
+    // 1. Search view - set a start location of the route
     // 2. Options view - specify route options
     // 3. Itinerary view - the generated route
     @StateObject var navigationStack = DNavigationStack()

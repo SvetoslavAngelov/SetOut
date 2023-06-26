@@ -25,8 +25,8 @@ struct VOptionsView: View {
     @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var mapPlacemark: DMapPlacemark
     
-    @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
-    @State var startLocationName = "Loading..."
+    @State var startLocationName: String = "Loading..."
+    @State var touristAttractionList: [DAttractionOutline] = [DAttractionOutline()]
     
     var body: some View {
         
@@ -64,20 +64,14 @@ struct VOptionsView: View {
                     .padding()
                 
                 ScrollView{
-                    ForEach(attractionsOutline) { result in
+                    ForEach (touristAttractionList) { result in
                         RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
                     }
                 }.frame(height: screenHeight * 0.5)
-            }
-        }.onAppear{
-            startLocationName = mapPlacemark.name
-        }.onChange(of: mapPlacemark.name) {_ in
-            startLocationName = mapPlacemark.name
-        }.task {
-            do {
-                attractionsOutline = try await getListOfAttractions()
-            } catch {
-                print("Failed to fetch user: \(error)")
+            }.onAppear {
+                startLocationName = mapPlacemark.name
+            }.onChange(of: mapPlacemark.name) {_ in
+                startLocationName = mapPlacemark.name
             }
         }
     }
