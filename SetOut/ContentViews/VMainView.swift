@@ -21,8 +21,6 @@ import MapKit
 struct VMainView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @StateObject var keyboardResponder = DKeyboardResponder()
-    
     @EnvironmentObject var locationManager: DLocationManager
     @EnvironmentObject var locationSearch: DLocationSearch
     @EnvironmentObject var mapPlacemark: DMapPlacemark
@@ -33,6 +31,7 @@ struct VMainView: View {
             
             GeometryReader{ screen in
                 ZStack {
+                
                     VStack{
                         switch navigationStack.stack {
                             case .searchView:
@@ -66,6 +65,5 @@ struct VMainView_Previews: PreviewProvider {
             .environmentObject(DLocationManager())
             .environmentObject(DLocationSearch())
             .environmentObject(DMapPlacemark())
-            .environmentObject(DHttpRequest())
     }
 }

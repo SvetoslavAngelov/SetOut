@@ -21,15 +21,17 @@ struct CMapView: View {
     @EnvironmentObject var locationSearch: DLocationSearch
     
     @State var region = DefaultRegion()
+    @State var mapAnnotations = [DMapAnnotation()]
     
     var body: some View {
-        Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: mapPlacemark.annotations) {
+        Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: mapAnnotations) {
             MapMarker(coordinate: $0.coordinates, tint: .blue)
         }
             .ignoresSafeArea()
             .onChange(of: mapPlacemark.region) {_ in
                 withAnimation(.easeInOut(duration: 4.0)){
                     region = mapPlacemark.region
+                    mapAnnotations = mapPlacemark.annotations
                 }
             }.onChange(of: locationManager.lastCoordinateRegion) {_ in
                 withAnimation(.easeInOut(duration: 4.0)){

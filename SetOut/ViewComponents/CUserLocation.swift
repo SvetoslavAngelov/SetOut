@@ -35,7 +35,7 @@ struct CUserLocation: View {
     }
     
     private func navigateToOptions() -> Void {
-            navigationStack.navigateTo(.optionsView)
+        navigationStack.navigateTo(.optionsView)
     }
 }
 
