@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/*
+    View component which features a text field on the right and a custom
+    button on the right. The action performed by the button can be
+    specified during view construction.
+ */
+
 struct CSummaryCard: View {
     
     // Card properties

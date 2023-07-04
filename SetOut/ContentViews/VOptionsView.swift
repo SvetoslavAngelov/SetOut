@@ -21,7 +21,6 @@ struct VOptionsView: View {
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
-    @EnvironmentObject var slidingCardPosition: DCardPosition
     @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var mapPlacemark: DMapPlacemark
     
@@ -95,7 +94,6 @@ struct VOptionsView_Previews: PreviewProvider {
         GeometryReader{ screen in
             VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .edgesIgnoringSafeArea(.bottom)
-                .environmentObject(DCardPosition())
                 .environmentObject(DNavigationStack())
                 .environmentObject(DMapPlacemark())
         }

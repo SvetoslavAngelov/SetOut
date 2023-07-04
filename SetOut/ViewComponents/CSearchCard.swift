@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+/*
+    Custom text field component which is used for location searching.
+    The text entered by the user updates the DLocationSearch search
+    query, which in turn triggers a new view update. 
+ */
+
 struct CSearchCard: View {
     
     var screenWidth: CGFloat

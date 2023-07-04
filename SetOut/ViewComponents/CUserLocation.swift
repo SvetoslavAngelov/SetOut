@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+/*
+    The CUserLocation view component is used to request the user's
+    location via a DLocationManager object.
+ */
+
 struct CUserLocation: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
@@ -29,8 +34,9 @@ struct CUserLocation: View {
         
         if lastUserLocation == locationManager.lastCoordinateRegion{
             
-            // move the map view back to the user's original location.
-            mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion, newRegionName: "Current Location")
+            // If the user's location hasn't changed since the last request,
+            // move the map view centre back to it. 
+            mapPlacemark.updateMapRegion(newRegion: lastUserLocation, newRegionName: "Current Location")
         }
     }
     

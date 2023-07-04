@@ -8,6 +8,11 @@
 import SwiftUI
 import MapKit
 
+/*
+    View component which returns the list of location search results,
+    based on the characters entered by the user in the CSearchCard. 
+ */
+
 struct CSearchList: View {
     
     var screenWidth: CGFloat

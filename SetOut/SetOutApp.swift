@@ -17,10 +17,6 @@ struct SetOutApp: App {
     // 3. Itinerary view - the generated route
     @StateObject var navigationStack = DNavigationStack()
     
-    // The position of the main sliding card component
-    // which is shared amongst the Options and Itinerary view.
-    @StateObject var slidingCardPosition = DCardPosition()
-    
     // A custom location manager, which is used to request the user's
     // current location. This object does not track the user location.
     @StateObject var locationManager = DLocationManager()
@@ -39,7 +35,6 @@ struct SetOutApp: App {
         WindowGroup {
             VMainView()
                 .environmentObject(navigationStack)
-                .environmentObject(slidingCardPosition)
                 .environmentObject(locationManager)
                 .environmentObject(locationSearch)
                 .environmentObject(mapPlacemark)

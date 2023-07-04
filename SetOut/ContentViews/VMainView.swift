@@ -61,7 +61,6 @@ struct VMainView_Previews: PreviewProvider {
     static var previews: some View {
         VMainView()
             .environmentObject(DNavigationStack())
-            .environmentObject(DCardPosition())
             .environmentObject(DLocationManager())
             .environmentObject(DLocationSearch())
             .environmentObject(DMapPlacemark())

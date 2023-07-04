@@ -17,7 +17,6 @@ struct VItineraryView: View {
     var screenHeight: CGFloat
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var slidingCardPosition: DCardPosition
     @EnvironmentObject var mapPlacemark: DMapPlacemark
     
     @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
@@ -105,7 +104,6 @@ struct VItineraryView_Previews: PreviewProvider {
         GeometryReader { screen in
             VItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .environmentObject(DNavigationStack())
-                .environmentObject(DCardPosition())
                 .environmentObject(DMapPlacemark())
         }
     }

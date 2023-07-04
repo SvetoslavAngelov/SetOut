@@ -30,7 +30,7 @@ enum DPosition: Double {
 
 class DCardPosition: ObservableObject {
     
-    @Published var position = DPosition.middle
+    @Published var position = DPosition.bottom
     @Published var withAnimaiton = false
     
     func updatePositionPostDrag(dragGestureValue: DragGesture.Value, maxTranslationSize: CGSize) -> Void {
