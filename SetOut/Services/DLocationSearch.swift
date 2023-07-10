@@ -60,6 +60,24 @@ class DLocationSearch: NSObject, ObservableObject, MKLocalSearchCompleterDelegat
         }
     }
     
+    // Async function overload of searchStart()
+    public func startSearchAsync(_ completion: MKLocalSearchCompletion, _ region: MKCoordinateRegion = DefaultRegion()) async throws -> Optional<MKPlacemark> {
+        let searchRequest = MKLocalSearch.Request(completion: completion)
+        
+        // Takes an optional region to narrow the address search to a specific region
+        searchRequest.region = region
+        
+        let search = MKLocalSearch(request: searchRequest)
+        
+        do {
+                let response = try await search.start()
+                return response.mapItems[0].placemark
+            } catch {
+                print("MKLocalSearch encountered an error: \(error.localizedDescription)")
+                throw error
+            }
+    }
+    
     // Allows clients to update the search query, without referencing it directly via the class'
     // public interface.
     public func updateSearchQuery(_ newSearchQuerry: String) -> Void {

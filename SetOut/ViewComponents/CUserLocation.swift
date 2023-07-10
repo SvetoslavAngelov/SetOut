@@ -29,6 +29,11 @@ struct CUserLocation: View {
     }
     
     private func requestLocation() -> Void {
+        // Check user location authorisation status
+        // Request location
+        // Update map placemark
+        // Toggle map placemark did change 
+        
         let lastUserLocation = locationManager.lastCoordinateRegion
         locationManager.requestLastLocation()
         

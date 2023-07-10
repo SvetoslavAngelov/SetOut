@@ -31,6 +31,8 @@ struct SetOutApp: App {
     // upon a successful search querry.
     @StateObject var mapPlacemark = DMapPlacemark()
     
+    @StateObject var httpRequest = DHttpRequest()
+    
     var body: some Scene {
         WindowGroup {
             VMainView()
@@ -38,6 +40,7 @@ struct SetOutApp: App {
                 .environmentObject(locationManager)
                 .environmentObject(locationSearch)
                 .environmentObject(mapPlacemark)
+                .environmentObject(httpRequest)
         }
     }
 }

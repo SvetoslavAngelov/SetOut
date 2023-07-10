@@ -24,6 +24,7 @@ struct VMainView: View {
     @EnvironmentObject var locationManager: DLocationManager
     @EnvironmentObject var locationSearch: DLocationSearch
     @EnvironmentObject var mapPlacemark: DMapPlacemark
+    @EnvironmentObject var httpRequest: DHttpRequest
     
     var body: some View {
         ZStack{
@@ -39,7 +40,7 @@ struct VMainView: View {
                                 .frame(height: screen.size.height + screen.safeAreaInsets.bottom)
                             case .optionsView:
                                 withAnimation{
-                                    VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                    COptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
                                         .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
                                 }
                             case .itineraryView:
@@ -64,5 +65,6 @@ struct VMainView_Previews: PreviewProvider {
             .environmentObject(DLocationManager())
             .environmentObject(DLocationSearch())
             .environmentObject(DMapPlacemark())
+            .environmentObject(DHttpRequest())
     }
 }

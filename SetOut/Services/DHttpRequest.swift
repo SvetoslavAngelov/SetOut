@@ -9,22 +9,18 @@ import Foundation
 
 class DHttpRequest: ObservableObject {
     
-    private var searchResultCache = DSearchResultCache()
-    @Published var serverResult = [DAttractionOutline()]
+    var searchResultCache = DSearchResultCache()
+    var serverResult = [DAttractionOutline()]
+    @Published var isFinishedLoading = false
     
     func getAttractionsList(startLocation: String) async -> [DAttractionOutline] {
         
         if let cachedResults = self.searchResultCache.Get(key: startLocation) {
-            // DEBUG
-            print("Called cache")
             return cachedResults
         }
         
         do {
             let newSearchResult = try await fetchAttractionsFromServer()
-            
-            // DEBUG
-            print("Called server")
             return newSearchResult
         } catch {
             print(URLError(.timedOut).localizedDescription)
@@ -35,14 +31,11 @@ class DHttpRequest: ObservableObject {
     func loadAttractions(startLocation: String) {
         
         if let cachedResult = self.searchResultCache.Get(key: startLocation) {
-            // DEBUG
-            print("Called cache")
             self.serverResult = cachedResult
             return
         }
         
         fetchFromServer(startLocation: startLocation)
-        print("Called server")
     }
     
     func fetchFromServer(startLocation: String) {
@@ -68,6 +61,7 @@ class DHttpRequest: ObservableObject {
                         let decodedResult = try JSONDecoder().decode([DAttractionOutline].self, from: data)
                         self.serverResult = decodedResult
                         self.searchResultCache.Add(key: startLocation, value: decodedResult)
+                        self.isFinishedLoading = true
                     } catch let error {
                         print("Error decoding: ", error)
                     }

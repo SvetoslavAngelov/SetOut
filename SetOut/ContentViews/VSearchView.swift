@@ -58,7 +58,7 @@ struct VSearchView: View {
                 }
                 
                 CSearchList(screenWidth: screenWidth)
-                
+
             }
                 .frame(width: screenWidth)
                 .padding(.top)

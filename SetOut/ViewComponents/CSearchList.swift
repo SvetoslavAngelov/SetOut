@@ -25,7 +25,7 @@ struct CSearchList: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading, spacing: 0.0) {
-                ForEach(searchResults.prefix(6), id: \.self) { location in
+                ForEach(searchResults.prefix(5), id: \.self) { location in
                     Button {
                         locationSearch.startSearch(location)
                         navigationStack.navigateTo(.optionsView)
