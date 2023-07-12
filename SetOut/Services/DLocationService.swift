@@ -62,26 +62,15 @@ class DLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         }
     }
     
-    // Request location search & update placemark
-    /*
-    public func startSearch(completion: MKLocalSearchCompletion, _ region: MKCoordinateRegion = DefaultRegion()) -> Void {
-        Task {
-            do {
-                let searchResult = try await self.locationSearch.startSearchAsync(completion)
-            
-                DispatchQueue.main.async {
-                    self.mapPlacemark.updateMapRegion(newRegion: searchResult)
-                    self.isLocationUpdated.toggle()
-                }
-            } catch {
-                print("Search error")
-            }
-        }
-    }*/
-    
     // Get the last Map Placemark
     public func getMapPlacemark() -> DMapPlacemark {
         return self.mapPlacemark
+    }
+    
+    // Update the last Map Placemark
+    public func setMapPlacemark(newPlacemark: Optional<MKPlacemark>) -> Void {
+        self.mapPlacemark.updateMapRegion(newRegion: newPlacemark)
+        self.isLocationUpdated.toggle()
     }
 
     /*

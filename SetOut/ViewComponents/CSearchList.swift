@@ -19,6 +19,7 @@ struct CSearchList: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var locationSearch: DLocationSearch
+    @EnvironmentObject var locationService: DLocationService
     
     @State var searchResults: [MKLocalSearchCompletion] = []
     
@@ -27,7 +28,7 @@ struct CSearchList: View {
             VStack(alignment: .leading, spacing: 0.0) {
                 ForEach(searchResults.prefix(5), id: \.self) { location in
                     Button {
-                        locationSearch.startSearch(location)
+                        startSearch(location)
                         navigationStack.navigateTo(.optionsView)
                     } label: {
                         RSearchRow(locationItem: location, screenWidth: screenWidth)
@@ -38,6 +39,20 @@ struct CSearchList: View {
             }
         }.background(.white)
     }
+    
+    private func startSearch(_ completion: MKLocalSearchCompletion) -> Void {
+        Task {
+            do {
+                let searchResult = try await locationSearch.startSearchAsync(completion)
+                
+                DispatchQueue.main.async {
+                    locationService.setMapPlacemark(newPlacemark: searchResult)
+                }
+            } catch {
+                print("Search error")
+            }
+        }
+    }
 }
 
 struct CSearchList_Previews: PreviewProvider {
@@ -46,6 +61,7 @@ struct CSearchList_Previews: PreviewProvider {
             CSearchList(screenWidth: screen.size.width)
                 .environmentObject(DNavigationStack())
                 .environmentObject(DLocationSearch())
+                .environmentObject(DLocationService())
         }
     }
 }
