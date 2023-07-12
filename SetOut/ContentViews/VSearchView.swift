@@ -81,10 +81,7 @@ struct VSearchView_Previews: PreviewProvider {
     static var previews: some View {
         GeometryReader{screen in
             VSearchView(screenWidth: screen.size.width)
-                .environmentObject(DNavigationStack())
-                .environmentObject(DLocationManager())
                 .environmentObject(DLocationSearch())
-                .environmentObject(DMapPlacemark())
             }
         }
 }

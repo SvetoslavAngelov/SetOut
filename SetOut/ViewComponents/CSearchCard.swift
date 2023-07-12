@@ -15,12 +15,11 @@ import SwiftUI
 
 struct CSearchCard: View {
     
-    var screenWidth: CGFloat
-    
-    @State var searchText = ""
-    @FocusState var isFocused: Bool
-    
     @EnvironmentObject var locationSearch: DLocationSearch
+    @FocusState var isFocused: Bool
+    @State var searchText = ""
+    
+    var screenWidth: CGFloat
     
     var body: some View {
             VStack(spacing: 20.0){

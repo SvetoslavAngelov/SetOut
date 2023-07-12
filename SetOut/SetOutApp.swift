@@ -17,30 +17,19 @@ struct SetOutApp: App {
     // 3. Itinerary view - the generated route
     @StateObject var navigationStack = DNavigationStack()
     
-    // A custom location manager, which is used to request the user's
-    // current location. This object does not track the user location.
-    @StateObject var locationManager = DLocationManager()
-    
-    // Helper object which is used to trigger map API searches,
-    // provides search completion suggestions and returns a map
-    // object upon a successful search querry.
-    @StateObject var locationSearch = DLocationSearch()
-    
-    // The user's current location provided by the location manager
-    // or a new map location provided by the location search object
-    // upon a successful search querry.
-    @StateObject var mapPlacemark = DMapPlacemark()
-    
     @StateObject var httpRequest = DHttpRequest()
+    
+    @StateObject var locationService = DLocationService()
+    
+    @StateObject var locationSearch = DLocationSearch()
     
     var body: some Scene {
         WindowGroup {
             VMainView()
                 .environmentObject(navigationStack)
-                .environmentObject(locationManager)
-                .environmentObject(locationSearch)
-                .environmentObject(mapPlacemark)
                 .environmentObject(httpRequest)
+                .environmentObject(locationService)
+                .environmentObject(locationSearch)
         }
     }
 }

@@ -16,40 +16,29 @@ import MapKit
 
 struct CMapView: View {
     
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
-    @EnvironmentObject var locationManager: DLocationManager
-    @EnvironmentObject var locationSearch: DLocationSearch
-    
-    @State var region = DefaultRegion()
-    @State var mapAnnotations = [DMapAnnotation()]
+    @EnvironmentObject var locationService: DLocationService
+    @State var mapPlacemark = DMapPlacemark()
     
     var body: some View {
-        Map(coordinateRegion: $region, showsUserLocation: true, annotationItems: mapAnnotations) {
+        Map(coordinateRegion: $mapPlacemark.region, showsUserLocation: true, annotationItems: mapPlacemark.annotations) {
             MapMarker(coordinate: $0.coordinates, tint: .blue)
         }
             .ignoresSafeArea()
-            .onChange(of: mapPlacemark.region) {_ in
-                withAnimation(.easeInOut(duration: 4.0)){
-                    region = mapPlacemark.region
-                    mapAnnotations = mapPlacemark.annotations
-                }
-            }.onChange(of: locationManager.lastCoordinateRegion) {_ in
-                withAnimation(.easeInOut(duration: 4.0)){
-                    mapPlacemark.updateMapRegion(newRegion: locationManager.lastCoordinateRegion, newRegionName: "Current Location")
-                }
-            }.onChange(of: locationSearch.mapPlacemark) {_ in
-                withAnimation(.easeInOut(duration: 4.0)){
-                    mapPlacemark.updateMapRegion(newRegion: locationSearch.mapPlacemark)
-                }
+            .onChange(of: locationService.isLocationUpdated) {_ in
+                updateMapPlacemark()
             }
+    }
+    
+    internal func updateMapPlacemark() -> Void {
+        withAnimation(.easeInOut(duration: 4.0)){
+            self.mapPlacemark.updateMapRegion(newMapPlacemark: locationService.getMapPlacemark())
+        }
     }
 }
 
 struct CMapView_Previews: PreviewProvider {
     static var previews: some View {
         CMapView()
-            .environmentObject(DMapPlacemark())
-            .environmentObject(DLocationManager())
-            .environmentObject(DLocationSearch())
+            .environmentObject(DLocationService())
     }
 }

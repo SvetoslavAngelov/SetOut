@@ -13,8 +13,8 @@ struct COptionsView: View {
     var screenHeight: CGFloat
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
     @EnvironmentObject var httpRequest: DHttpRequest
+    @EnvironmentObject var locationService: DLocationService
     
     @State var startLocationName: String = "Loading..."
     @State var touristAttractionList: [DAttractionOutline] = [DAttractionOutline()]
@@ -60,10 +60,10 @@ struct COptionsView: View {
                     }
                 }.frame(height: screenHeight * 0.5)
             }.onAppear{
-                self.startLocationName = mapPlacemark.name
+                self.startLocationName = locationService.getMapPlacemark().name
                 self.touristAttractionList = httpRequest.serverResult
-            }.onChange(of: mapPlacemark.name) {_ in
-                loadResults(startLocation: mapPlacemark.name)
+            }.onChange(of: locationService.isLocationUpdated) {_ in
+                loadResults(startLocation: locationService.getMapPlacemark().name)
             }.onDisappear{
                 httpRequest.isFinishedLoading = false
             }
@@ -105,8 +105,8 @@ struct COptionsView_Previews: PreviewProvider {
             VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(DNavigationStack())
-                .environmentObject(DMapPlacemark())
                 .environmentObject(DHttpRequest())
+                .environmentObject(DLocationService())
         }
     }
 }

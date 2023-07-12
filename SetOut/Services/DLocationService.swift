@@ -18,7 +18,6 @@ class DLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var isLocationUpdated = false
     
     private var locationManager: Optional<CLLocationManager> = CLLocationManager()
-    private var locationSearch = DLocationSearch()
     private var mapPlacemark = DMapPlacemark()
     
     private var isInUseLocationAuthorised = false
@@ -64,6 +63,7 @@ class DLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     // Request location search & update placemark
+    /*
     public func startSearch(completion: MKLocalSearchCompletion, _ region: MKCoordinateRegion = DefaultRegion()) -> Void {
         Task {
             do {
@@ -71,21 +71,22 @@ class DLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
             
                 DispatchQueue.main.async {
                     self.mapPlacemark.updateMapRegion(newRegion: searchResult)
-                    self.isLocationUpdated = true
+                    self.isLocationUpdated.toggle()
                 }
             } catch {
                 print("Search error")
             }
         }
+    }*/
+    
+    // Get the last Map Placemark
+    public func getMapPlacemark() -> DMapPlacemark {
+        return self.mapPlacemark
     }
-    
-    // Clear search query
-    
-    // Update search query
-    
-    // Get map placemark
 
-    
+    /*
+        Class delegate interface
+     */
     internal func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         updateAuthorisationStatus()
     }
@@ -95,6 +96,7 @@ class DLocationService: NSObject, ObservableObject, CLLocationManagerDelegate {
         
         self.mapPlacemark.updateMapRegion(newRegion: newRegion, newRegionName: "Current Location")
         self.isLocationUpdated.toggle()
+        print("Location updated")
     }
     
     internal func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

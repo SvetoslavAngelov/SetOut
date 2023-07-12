@@ -18,9 +18,9 @@ import Combine
 class DLocationSearch: NSObject, ObservableObject, MKLocalSearchCompleterDelegate {
     
     @Published var searchCompletion: [MKLocalSearchCompletion] = []
-    @Published var mapPlacemark: Optional<MKPlacemark> = nil
     @Published var searchQuery = ""
     
+    private var mapPlacemark: Optional<MKPlacemark> = nil
     private var searchCompleter = MKLocalSearchCompleter()
     private var cancellable: AnyCancellable?
     

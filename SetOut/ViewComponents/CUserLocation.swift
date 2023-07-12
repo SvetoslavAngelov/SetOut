@@ -15,8 +15,7 @@ import SwiftUI
 struct CUserLocation: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var locationManager: DLocationManager
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
+    @EnvironmentObject var locationService: DLocationService
     
     var body: some View {
         Button{
@@ -29,20 +28,7 @@ struct CUserLocation: View {
     }
     
     private func requestLocation() -> Void {
-        // Check user location authorisation status
-        // Request location
-        // Update map placemark
-        // Toggle map placemark did change 
-        
-        let lastUserLocation = locationManager.lastCoordinateRegion
-        locationManager.requestLastLocation()
-        
-        if lastUserLocation == locationManager.lastCoordinateRegion{
-            
-            // If the user's location hasn't changed since the last request,
-            // move the map view centre back to it. 
-            mapPlacemark.updateMapRegion(newRegion: lastUserLocation, newRegionName: "Current Location")
-        }
+        locationService.requestLastLocation()
     }
     
     private func navigateToOptions() -> Void {
@@ -54,7 +40,6 @@ struct CUserLocation_Previews: PreviewProvider {
     static var previews: some View {
         CUserLocation()
             .environmentObject(DNavigationStack())
-            .environmentObject(DLocationManager())
-            .environmentObject(DMapPlacemark())
+            .environmentObject(DLocationService())
     }
 }

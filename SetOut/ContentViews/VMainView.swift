@@ -21,10 +21,9 @@ import MapKit
 struct VMainView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var locationManager: DLocationManager
-    @EnvironmentObject var locationSearch: DLocationSearch
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
     @EnvironmentObject var httpRequest: DHttpRequest
+    @EnvironmentObject var locationService: DLocationService
+    @EnvironmentObject var locationSearch: DLocationSearch
     
     var body: some View {
         ZStack{
@@ -62,9 +61,8 @@ struct VMainView_Previews: PreviewProvider {
     static var previews: some View {
         VMainView()
             .environmentObject(DNavigationStack())
-            .environmentObject(DLocationManager())
-            .environmentObject(DLocationSearch())
-            .environmentObject(DMapPlacemark())
             .environmentObject(DHttpRequest())
+            .environmentObject(DLocationService())
+            .environmentObject(DLocationSearch())
     }
 }

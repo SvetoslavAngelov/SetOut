@@ -34,7 +34,7 @@ struct CSearchList: View {
                     }.buttonStyle(.plain)
                 }
             }.onChange(of: locationSearch.searchCompletion) {_ in
-                    searchResults = locationSearch.searchCompletion
+                searchResults = locationSearch.searchCompletion
             }
         }.background(.white)
     }

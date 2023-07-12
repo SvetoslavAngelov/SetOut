@@ -12,7 +12,7 @@ class DSearchResultCache {
     private var searchResults: [String: [DAttractionOutline]]
     private var capacity: Int
 
-    init(searchResults: [String : [DAttractionOutline]] = [:], capacity: Int = 3) {
+    init(searchResults: [String : [DAttractionOutline]] = [:], capacity: Int = 5) {
         self.searchResults = searchResults
         self.capacity = capacity
     }

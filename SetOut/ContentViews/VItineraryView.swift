@@ -17,7 +17,7 @@ struct VItineraryView: View {
     var screenHeight: CGFloat
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
+    @EnvironmentObject var locationService: DLocationService
     
     @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
     @State var startLocationName = "Loading..."
@@ -86,9 +86,9 @@ struct VItineraryView: View {
                 }.frame(height: screenHeight * 0.54)
             }
         }.onAppear{
-            startLocationName = mapPlacemark.name
-        }.onChange(of: mapPlacemark.name) {_ in
-            startLocationName = mapPlacemark.name
+            startLocationName = locationService.getMapPlacemark().name
+        }.onChange(of: locationService.isLocationUpdated) {_ in
+            startLocationName = locationService.getMapPlacemark().name
         }
     }
     
@@ -104,7 +104,7 @@ struct VItineraryView_Previews: PreviewProvider {
         GeometryReader { screen in
             VItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .environmentObject(DNavigationStack())
-                .environmentObject(DMapPlacemark())
+                .environmentObject(DLocationService())
         }
     }
 }

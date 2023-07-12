@@ -7,6 +7,7 @@
 
 import Foundation
 import MapKit
+import SwiftUI
 
 /*
     The DMapPlacemark object is used to track the area of focus on the map.
@@ -28,6 +29,14 @@ class DMapPlacemark: ObservableObject {
     @Published var name = "Loading..."
     @Published var region = DefaultRegion()
     @Published var annotations = [DMapAnnotation()]
+    
+    public func updateMapRegion(newMapPlacemark: DMapPlacemark) -> Void {
+        withAnimation{
+            self.name = newMapPlacemark.name
+            self.region = newMapPlacemark.region
+            self.annotations = newMapPlacemark.annotations
+        }
+    }
 
     public func updateMapRegion(newRegion: MKCoordinateRegion, newRegionName: String) -> Void {
         self.region = newRegion
