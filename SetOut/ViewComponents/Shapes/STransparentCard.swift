@@ -11,6 +11,7 @@ import SwiftUI
     Basic card shape component using Swift's thin material
     for a more blurry/glassy look.
  */
+
 struct STransparentCard: View {
     private var width: CGFloat
     private var height: CGFloat

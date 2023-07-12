@@ -21,7 +21,9 @@ import MapKit
 struct VMainView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @StateObject var keyboardResponder = DKeyboardResponder()
+    @EnvironmentObject var httpRequest: DHttpRequest
+    @EnvironmentObject var locationService: DLocationService
+    @EnvironmentObject var locationSearch: DLocationSearch
     
     var body: some View {
         ZStack{
@@ -29,6 +31,7 @@ struct VMainView: View {
             
             GeometryReader{ screen in
                 ZStack {
+                
                     VStack{
                         switch navigationStack.stack {
                             case .searchView:
@@ -36,7 +39,7 @@ struct VMainView: View {
                                 .frame(height: screen.size.height + screen.safeAreaInsets.bottom)
                             case .optionsView:
                                 withAnimation{
-                                    VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
+                                    COptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height + screen.safeAreaInsets.bottom)
                                         .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .move(edge: .bottom)))
                                 }
                             case .itineraryView:
@@ -58,9 +61,8 @@ struct VMainView_Previews: PreviewProvider {
     static var previews: some View {
         VMainView()
             .environmentObject(DNavigationStack())
-            .environmentObject(DCardPosition())
-            .environmentObject(DLocationManager())
+            .environmentObject(DHttpRequest())
+            .environmentObject(DLocationService())
             .environmentObject(DLocationSearch())
-            .environmentObject(DMapPlacemark())
     }
 }

@@ -8,6 +8,11 @@
 import SwiftUI
 import MapKit
 
+/*
+    View component which returns the list of location search results,
+    based on the characters entered by the user in the CSearchCard. 
+ */
+
 struct CSearchList: View {
     
     var screenWidth: CGFloat
@@ -20,7 +25,7 @@ struct CSearchList: View {
     var body: some View {
         ScrollView{
             VStack(alignment: .leading, spacing: 0.0) {
-                ForEach(searchResults.prefix(6), id: \.self) { location in
+                ForEach(searchResults.prefix(5), id: \.self) { location in
                     Button {
                         locationSearch.startSearch(location)
                         navigationStack.navigateTo(.optionsView)
@@ -29,8 +34,8 @@ struct CSearchList: View {
                     }.buttonStyle(.plain)
                 }
             }.onChange(of: locationSearch.searchCompletion) {_ in
-                    searchResults = locationSearch.searchCompletion
-                }
+                searchResults = locationSearch.searchCompletion
+            }
         }.background(.white)
     }
 }

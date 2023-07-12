@@ -27,7 +27,7 @@ struct CSlidingCard<Content: View> : View {
     private var alignment: Alignment
     
     // The position at which the card is snapped in
-    @EnvironmentObject private var cardPosition: DCardPosition
+    @StateObject private var cardPosition: DCardPosition = DCardPosition()
     
     // The size of the drag gesture.
     @GestureState private var dragSize = CGSize(width: 0.0, height: 0.0)
@@ -95,8 +95,7 @@ struct CSlidingCard<Content: View> : View {
         .offset(x: 0.0, y: cardPosition.position == .top && dragSize.height < 0 ? 0.0 : dragSize.height)
         .gesture(dragAction)
         .onTapGesture {
-            cardPosition.position = .top
-            cardPosition.withAnimaiton.toggle()
+            cardPosition.updatePosition(newPosition: .top)
         }
         .offset(x: 0.0, y: self.height * cardPosition.position.rawValue)
         .animation(.interpolatingSpring(stiffness: 300.0, damping: 200.0, initialVelocity: 20.0), value: cardPosition.withAnimaiton)
@@ -108,7 +107,7 @@ struct CSlidingCard_Previews: PreviewProvider {
         GeometryReader{ screen in
             CSlidingCard(width: screen.size.width, height: screen.size.height, alignment: .top){
             }
-        }.edgesIgnoringSafeArea(.bottom).environmentObject(DCardPosition())
+        }.edgesIgnoringSafeArea(.bottom)
     }
 }
 

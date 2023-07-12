@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+/*
+    Basic card shape component using Swift's regular material.
+ */
+
 struct SRegularCard: View {
     private var width: CGFloat
     private var height: CGFloat

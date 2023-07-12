@@ -7,14 +7,19 @@
 
 import SwiftUI
 
+/*
+    Custom text field component which is used for location searching.
+    The text entered by the user updates the DLocationSearch search
+    query, which in turn triggers a new view update. 
+ */
+
 struct CSearchCard: View {
     
-    var screenWidth: CGFloat
-    
-    @State var searchText = ""
-    @FocusState var isFocused: Bool
-    
     @EnvironmentObject var locationSearch: DLocationSearch
+    @FocusState var isFocused: Bool
+    @State var searchText = ""
+    
+    var screenWidth: CGFloat
     
     var body: some View {
             VStack(spacing: 20.0){
