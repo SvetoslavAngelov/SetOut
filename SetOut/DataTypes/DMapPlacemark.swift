@@ -34,7 +34,7 @@ class DMapPlacemark: ObservableObject {
         withAnimation{
             self.name = newMapPlacemark.name
             self.region = newMapPlacemark.region
-            self.annotations = newMapPlacemark.annotations
+            self.annotations[0].coordinates = newMapPlacemark.region.center
         }
     }
 
