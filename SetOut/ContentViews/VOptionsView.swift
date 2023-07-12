@@ -17,13 +17,13 @@ import MapKit
  */
 
 struct VOptionsView: View {
-
+    
     var screenWidth: CGFloat
     var screenHeight: CGFloat
     
     @EnvironmentObject var navigationStack: DNavigationStack
-    @EnvironmentObject var mapPlacemark: DMapPlacemark
     @EnvironmentObject var httpRequest: DHttpRequest
+    @EnvironmentObject var locationService: DLocationService
     
     @State var startLocationName: String = "Loading..."
     @State var touristAttractionList: [DAttractionOutline] = [DAttractionOutline()]
@@ -64,19 +64,34 @@ struct VOptionsView: View {
                     .padding()
                 
                 ScrollView{
-                    ForEach (touristAttractionList) { result in
+                    ForEach (httpRequest.isFinishedLoading ? httpRequest.serverResult : touristAttractionList) { result in
                         RTopAttractions(screenWidth: screenWidth, touristAttraction: result)
                     }
                 }.frame(height: screenHeight * 0.5)
-            }.onAppear {
-                startLocationName = mapPlacemark.name
-            }.onChange(of: mapPlacemark.name) {_ in
-                startLocationName = mapPlacemark.name
-                httpRequest.loadAttractions(startLocation: startLocationName)
-            }/*.onChange(of: httpRequest.isResultUpdated) {_ in
-                touristAttractionList = httpRequest.serverResult
-            }*/
+            }.onAppear{
+                self.startLocationName = locationService.getMapPlacemark().name
+                self.touristAttractionList = httpRequest.serverResult
+            }.onChange(of: locationService.isLocationUpdated) {_ in
+                loadResults(startLocation: locationService.getMapPlacemark().name)
+            }.onDisappear{
+                httpRequest.isFinishedLoading = false
+            }
         }
+    }
+    
+    func loadResults(startLocation: String) -> Void {
+        
+        // Update location name
+        self.startLocationName = startLocation
+        
+        // Check cache first
+        if let cachedResult = httpRequest.searchResultCache.Get(key: startLocation) {
+            touristAttractionList = cachedResult
+            return
+        }
+        
+        // Call server otherwise
+        httpRequest.fetchFromServer(startLocation: startLocation)
     }
     
     private func CreateItinerary() -> Void {
@@ -99,8 +114,8 @@ struct VOptionsView_Previews: PreviewProvider {
             VOptionsView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .edgesIgnoringSafeArea(.bottom)
                 .environmentObject(DNavigationStack())
-                .environmentObject(DMapPlacemark())
                 .environmentObject(DHttpRequest())
+                .environmentObject(DLocationService())
         }
     }
 }
