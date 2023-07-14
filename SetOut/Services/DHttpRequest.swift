@@ -13,21 +13,6 @@ class DHttpRequest: ObservableObject {
     @Published var serverResult = [DAttractionOutline()]
     @Published var isFinishedLoading = false
     
-    func getAttractionsList(startLocation: String) async -> [DAttractionOutline] {
-        
-        if let cachedResults = self.searchResultCache.Get(key: startLocation) {
-            return cachedResults
-        }
-        
-        do {
-            let newSearchResult = try await fetchAttractionsFromServer()
-            return newSearchResult
-        } catch {
-            print(URLError(.timedOut).localizedDescription)
-            return [DAttractionOutline()]
-        }
-    }
-    
     func loadAttractions(startLocation: String) {
         
         if let cachedResult = self.searchResultCache.Get(key: startLocation) {
@@ -73,31 +58,6 @@ class DHttpRequest: ObservableObject {
     
     func updateSearchResultCache(key: String, value: [DAttractionOutline]) {
         self.searchResultCache.Add(key: key, value: value)
-    }
-    
-    private func fetchAttractionsFromServer() async throws -> [DAttractionOutline] {
-        
-        let urlString = APIGATEWAY + "/attractions" + "?" + "key=" + APIKEY
-        
-        guard let url = URL(string: urlString) else {
-            throw URLError(.badURL)
-        }
-        
-        var request = URLRequest(url: url)
-        request.setValue(Bundle.main.bundleIdentifier, forHTTPHeaderField: "x-ios-bundle-identifier")
-
-        let (data, response) = try await URLSession.shared.data(for: request)
-        
-        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-            throw URLError(.badServerResponse)
-        }
-
-        do {
-              let decoder = JSONDecoder()
-              return try decoder.decode([DAttractionOutline].self, from: data)
-          } catch {
-              throw URLError(.cannotDecodeContentData)
-          }
     }
 }
 

@@ -12,7 +12,7 @@ import Foundation
     The function "load" is called when the touristAttractions object is initialised
     at runtime. 
  */
-var touristAttractions: [DTouristAttraction] = load("TestData_Attractions.json")
+var touristAttractions: [DAttractionOutline] = load("TestData_Attractions.json")
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
