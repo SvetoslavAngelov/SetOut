@@ -18,6 +18,7 @@ struct VItineraryView: View {
     
     @EnvironmentObject var navigationStack: DNavigationStack
     @EnvironmentObject var locationService: DLocationService
+    @EnvironmentObject var httpRequest: DHttpRequest
     
     @State var attractionsOutline: [DAttractionOutline] = [DAttractionOutline()]
     @State var startLocationName = "Loading..."
@@ -86,8 +87,6 @@ struct VItineraryView: View {
                 }.frame(height: screenHeight * 0.54)
             }
         }.onAppear{
-            startLocationName = locationService.getMapPlacemark().name
-        }.onChange(of: locationService.isLocationUpdated) {_ in
             startLocationName = locationService.getMapPlacemark().name
         }
     }

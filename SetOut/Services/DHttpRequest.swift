@@ -10,7 +10,7 @@ import Foundation
 class DHttpRequest: ObservableObject {
     
     var searchResultCache = DSearchResultCache()
-    var serverResult = [DAttractionOutline()]
+    @Published var serverResult = [DAttractionOutline()]
     @Published var isFinishedLoading = false
     
     func getAttractionsList(startLocation: String) async -> [DAttractionOutline] {
