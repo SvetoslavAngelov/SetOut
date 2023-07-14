@@ -31,35 +31,6 @@ struct CMapView: View {
                     self.mapPlacemark.annotations = locationService.getMapPlacemark().annotations
                 }
             }
-            .onChange(of: locationService.isLocationUpdated) {_ in
-                drawRoute()
-            }
-    }
-    
-    private func drawRoute(){
-        
-        //let places = httpRequest.serverResult
-        
-        let request = MKDirections.Request()
-        request.source = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 51.505507, longitude: -0.075402), addressDictionary: nil))
-        
-        request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: 51.502937, longitude: 0.003182), addressDictionary: nil))
-        request.transportType = .automobile
-        request.requestsAlternateRoutes = true
-        
-        let directions = MKDirections(request: request)
-        directions.calculate { (response, error) in
-            if let error = error {
-                print("Error calculating directions: \(error)")
-                return
-            }
-            
-            if let route = response?.routes.first {
-                let mapRect = route.polyline.boundingMapRect
-                self.mapPlacemark.region = MKCoordinateRegion(mapRect)
-                print("calculated route")
-            }
-        }
     }
 }
 

@@ -87,7 +87,8 @@ struct VItineraryView: View {
                 }.frame(height: screenHeight * 0.54)
             }
         }.onAppear{
-            startLocationName = locationService.getMapPlacemark().name
+            self.startLocationName = locationService.getMapPlacemark().name
+            self.attractionsOutline = httpRequest.serverResult
         }
     }
     
@@ -104,6 +105,7 @@ struct VItineraryView_Previews: PreviewProvider {
             VItineraryView(screenWidth: screen.size.width, screenHeight: screen.size.height)
                 .environmentObject(DNavigationStack())
                 .environmentObject(DLocationService())
+                .environmentObject(DHttpRequest())
         }
     }
 }
